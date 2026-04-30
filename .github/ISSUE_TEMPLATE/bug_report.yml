@@ -1,0 +1,60 @@
+name: Bug report
+description: Сообщить о некорректном поведении
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: Спасибо за отчёт. Пожалуйста, заполните поля ниже максимально подробно.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Краткое описание
+      description: Что сломалось?
+      placeholder: Например, API /analyze возвращает 500 на валидном CSV.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Шаги воспроизведения
+      description: Как воспроизвести проблему?
+      placeholder: |
+        1. Запустить `python main.py api`
+        2. Отправить POST /upload ...
+        3. Отправить POST /analyze ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Ожидаемое поведение
+      placeholder: Что вы ожидали увидеть?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Фактическое поведение
+      placeholder: Что получилось на самом деле? Добавьте traceback/логи.
+    validations:
+      required: true
+
+  - type: input
+    id: python_version
+    attributes:
+      label: Версия Python
+      placeholder: "3.11.9"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Окружение
+      description: ОС, способ запуска (CLI/UI/API), доп. детали.
+      placeholder: Windows 11, запуск через `python main.py ui`

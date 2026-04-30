@@ -1,0 +1,56 @@
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Python cache and compiled artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Local model/report artifacts
+models/*.joblib
+*.joblib
+reports/*.html
+reports/*.txt
+*.log
+
+# Keep placeholder files
+!models/.gitkeep
+!reports/.gitkeep
+
+# Packaging/build artifacts
+build/
+dist/
+*.egg-info/
+pip-wheel-metadata/
+
+# Tests and coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Linter/type checker caches
+.mypy_cache/
+.ruff_cache/
+
+# Streamlit local config
+.streamlit/
+
+# IDE/editor files
+.vscode/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Local environment files
+.env
+.env.*
+!.env.example

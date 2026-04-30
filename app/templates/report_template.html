@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Отчёт по анализу временных рядов</title>
+    <style>
+        body {
+            font-family: "Segoe UI", Tahoma, sans-serif;
+            margin: 32px;
+            color: #1f2937;
+            background: linear-gradient(180deg, #f8fafc 0%, #ffffff 100%);
+        }
+        h1, h2 {
+            color: #0f172a;
+        }
+        .card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 12px;
+        }
+        th, td {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 10px 8px;
+            text-align: left;
+            vertical-align: top;
+        }
+        th {
+            background: #f8fafc;
+            color: #0f172a;
+        }
+        .metric-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+        .metric {
+            background: #eff6ff;
+            border-radius: 12px;
+            padding: 14px;
+            border: 1px solid #bfdbfe;
+        }
+        .metric strong {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            color: #1d4ed8;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Отчёт по анализу временных рядов</h1>
+
+    <div class="card">
+        <h2>Общая информация</h2>
+        <p><strong>Дата анализа:</strong> {{ analysis_time }}</p>
+        <p><strong>Исходный файл:</strong> {{ source_name }}</p>
+        <p><strong>Количество записей:</strong> {{ record_count }}</p>
+        <p><strong>Выбранный параметр прогноза:</strong> {{ selected_sensor }}</p>
+    </div>
+
+    <div class="card">
+        <h2>Summary-метрики</h2>
+        <div class="metric-grid">
+            {% for key, value in summary.items() %}
+            <div class="metric">
+                <strong>{{ key }}</strong>
+                <span>{{ value }}</span>
+            </div>
+            {% endfor %}
+            <div class="metric">
+                <strong>forecast_risk_level</strong>
+                <span>{{ forecast_risk_level }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>Найденные интервалы нестабильности</h2>
+        {% if intervals %}
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Начало</th>
+                    <th>Конец</th>
+                    <th>Длительность</th>
+                    <th>Средний score</th>
+                    <th>Состояние</th>
+                    <th>Главный вкладчик</th>
+                    <th>Объяснение</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for interval in intervals %}
+                <tr>
+                    <td>{{ interval.interval_id }}</td>
+                    <td>{{ interval.start }}</td>
+                    <td>{{ interval.end }}</td>
+                    <td>{{ interval.duration }}</td>
+                    <td>{{ interval.average_score }}</td>
+                    <td>{{ interval.peak_state }}</td>
+                    <td>{{ interval.main_contributor }}</td>
+                    <td>{{ interval.explanation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Выраженные нестабильные интервалы не обнаружены.</p>
+        {% endif %}
+    </div>
+
+    <div class="card">
+        <h2>Прогноз</h2>
+        <p><strong>Риск:</strong> {{ forecast_risk }} ({{ forecast_risk_level }})</p>
+        <p><strong>Метрики модели:</strong> {{ forecast_metrics }}</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Время</th>
+                    <th>Прогноз</th>
+                    <th>Нижняя граница</th>
+                    <th>Верхняя граница</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in forecast_rows %}
+                <tr>
+                    <td>{{ row.timestamp }}</td>
+                    <td>{{ row.forecast }}</td>
+                    <td>{{ row.lower_bound }}</td>
+                    <td>{{ row.upper_bound }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="card">
+        <h2>Итоговый вывод</h2>
+        <p>{{ conclusion }}</p>
+    </div>
+</body>
+</html>
