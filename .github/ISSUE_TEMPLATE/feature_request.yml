@@ -1,0 +1,38 @@
+name: Feature request
+description: Suggest an improvement
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the idea. Please describe the problem and expected impact.
+        Requests are considered on a best-effort basis.
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem statement
+      placeholder: What is currently difficult or missing?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      placeholder: What should be added/changed?
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      placeholder: Any other options you evaluated?
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Expected impact
+      placeholder: How will this improve usability, reliability, or maintainability?
